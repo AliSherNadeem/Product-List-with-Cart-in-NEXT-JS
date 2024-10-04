@@ -1,4 +1,4 @@
-"use client"; // Add this at the top of your file
+"use client";
 
 import CartIcon from "@/public/assets/icons/CartIcon";
 import DecrementIcon from "@/public/assets/icons/DecrementIcon";
@@ -29,33 +29,38 @@ const Button = ({ label }: ButtonProps) => {
   };
 
   const handleButtonClick = () => {
-    setShowControls(true);
-    setQuantity((prev) => (prev === 0 ? 1 : prev));
+    if (!showControls) {
+      setShowControls(true);
+      setQuantity(1);
+    } else {
+      setShowControls(false);
+      setQuantity(0);
+    }
   };
 
   return (
     <div className="flex items-center mt-4">
       {!showControls ? (
         <button
-          className="bg-white text-redCustom border border-cus py-2 px-4 rounded-full shadow-lg flex items-center justify-center w-40"
+          className="bg-white font-bold text-rose-900 border border-redCustom py-2 px-4 rounded-full shadow-lg flex items-center gap-1 justify-center w-40"
           onClick={handleButtonClick}
         >
-          <CartIcon className="mr-2" />
+          <CartIcon />
           {label}
         </button>
       ) : (
-        <div className="flex items-center bg-redCustom text-white py-2 rounded-full shadow-lg w-40 justify-center">
+        <div className="flex items-center justify-between bg-redCustom text-white py-2 rounded-full shadow-lg w-40">
           <button
             onClick={handleDecrement}
             disabled={quantity <= 0}
-            className="flex items-center justify-center w-6 h-6"
+            className="flex items-center justify-center w-6 h-6 ml-auto border border-white rounded-full"
           >
             <DecrementIcon className="text-white" />
           </button>
-          <span className="mx-4">{quantity > 0 ? quantity : 0}</span>
+          <span className="mx-8">{quantity}</span>
           <button
             onClick={handleIncrement}
-            className="flex items-center justify-center w-6 h-6"
+            className="flex items-center justify-center w-6 h-6 mr-auto  border border-white rounded-full"
           >
             <IncrementIcon className="text-white" />
           </button>

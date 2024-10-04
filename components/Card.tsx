@@ -14,22 +14,25 @@ interface Dish {
 
 const Card = ({ dish }: { dish: Dish }) => {
   return (
-    <div className="relative overflow-hidden">
-      <div className="relative">
+    <div className="relative">
+      <div className="relative rounded-lg">
         <Image
           src={dish.image.desktop}
           alt={dish.name}
           className="w-full h-auto rounded-lg"
-          width="200"
-          height="200"
+          width={200}
+          height={200}
         />
-        <div className="absolute font-bold inset-x-0 bottom-0 flex justify-center">
-          <Button label="Add to Cart" />
+
+        <div className="absolute inset-x-0 bottom-[-16px] flex justify-center">
+          <div className="transform translate-y-1">
+            <Button label="Add to Cart" />
+          </div>
         </div>
       </div>
 
-      <div className="mt-4">
-        <CardDescription className="text-rose-500 ">
+      <div className="mt-8">
+        <CardDescription className="text-rose-500">
           {dish.category}
         </CardDescription>
         <CardTitle className="text-lg font-semibold mt-1">

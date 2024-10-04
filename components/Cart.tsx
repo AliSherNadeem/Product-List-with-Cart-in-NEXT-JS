@@ -4,7 +4,7 @@ import React from "react";
 const Cart = () => {
   return (
     <div className="bg-rose-50 p-6 rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-4 text-rose-900">Your Cart (0)</h2>
+      <h2 className="text-2xl font-bold mb-4 text-redCustom">Your Cart (0)</h2>
       <div className="flex justify-center items-center">
         <EmptyCartIllustration />
       </div>
