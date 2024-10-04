@@ -1,12 +1,7 @@
 import React from "react";
 import Image from "next/image";
-import {
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "./ui/card";
+import Button from "./Button";
+import { CardContent, CardDescription, CardTitle } from "./ui/card";
 
 interface Dish {
   name: string;
@@ -19,28 +14,31 @@ interface Dish {
 
 const Card = ({ dish }: { dish: Dish }) => {
   return (
-    <div>
-      <CardHeader>
+    <div className="relative overflow-hidden">
+      <div className="relative">
         <Image
           src={dish.image.desktop}
           alt={dish.name}
-          className="rounded-md"
-          width="250"
-          height="250"
+          className="w-full h-auto rounded-lg"
+          width="200"
+          height="200"
         />
-        <CardTitle className="text-lg font-semibold">{dish.name}</CardTitle>
-        <CardDescription className="text-gray-500">
+        <div className="absolute font-bold inset-x-0 bottom-0 flex justify-center">
+          <Button label="Add to Cart" />
+        </div>
+      </div>
+
+      <div className="mt-4">
+        <CardDescription className="text-rose-500 ">
           {dish.category}
         </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <p className="text-gray-700">${dish.price.toFixed(2)}</p>
-      </CardContent>
-      <CardFooter>
-        <button className="bg-blue-500 text-white py-1 px-4 rounded-md">
-          Add to Cart
-        </button>
-      </CardFooter>
+        <CardTitle className="text-lg font-semibold mt-1">
+          {dish.name}
+        </CardTitle>
+        <CardContent className="mt-1 p-0">
+          <p className="text-rose-600 font-medium">${dish.price.toFixed(2)}</p>
+        </CardContent>
+      </div>
     </div>
   );
 };

@@ -3,8 +3,9 @@ import ProductList from "@/components/ProductList";
 export default function Home() {
   return (
     <>
-      <ProductList />
-      <Cart />
+      <div className="p-16">
+        <ProductList />
+      </div>
     </>
   );
 }
