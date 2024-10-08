@@ -26,7 +26,7 @@ const Card = ({ dish }: { dish: Dish }) => {
 
         <div className="absolute inset-x-0 bottom-[-16px] flex justify-center">
           <div className="transform translate-y-1">
-            <Button label="Add to Cart" />
+            <Button label="Add to Cart" dish={dish} />
           </div>
         </div>
       </div>

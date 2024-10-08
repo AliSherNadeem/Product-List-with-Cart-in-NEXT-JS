@@ -1,5 +1,5 @@
 "use client";
-
+import { useCart } from "@/context/cartcontext";
 import CartIcon from "@/public/assets/icons/CartIcon";
 import DecrementIcon from "@/public/assets/icons/DecrementIcon";
 import IncrementIcon from "@/public/assets/icons/IncrementIcon";
@@ -7,12 +7,14 @@ import React, { useState } from "react";
 
 interface ButtonProps {
   label: string;
+  dish: any;
 }
 
-const Button = ({ label }: ButtonProps) => {
+const Button = ({ label, dish }: ButtonProps) => {
   const [quantity, setQuantity] = useState(0);
   const [showControls, setShowControls] = useState(false);
 
+  const { updateCart } = useCart();
   const handleIncrement = () => {
     setQuantity((prev) => prev + 1);
     setShowControls(true);
@@ -29,13 +31,14 @@ const Button = ({ label }: ButtonProps) => {
   };
 
   const handleButtonClick = () => {
-    if (!showControls) {
-      setShowControls(true);
-      setQuantity(1);
-    } else {
-      setShowControls(false);
-      setQuantity(0);
-    }
+    // if (!showControls) {
+    //   setShowControls(true);
+    //   setQuantity(1);
+    // } else {
+    //   setShowControls(false);
+    //   setQuantity(0);
+    // }
+    updateCart(dish);
   };
 
   return (
