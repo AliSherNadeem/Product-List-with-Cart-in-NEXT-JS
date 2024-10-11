@@ -24,7 +24,7 @@ const ProductList = async () => {
 
   return (
     <div className="flex flex-col lg:flex-row lg:mx-auto lg:px-1">
-      <div className="lg:w-3/4">
+      <div className="lg:w-2/3">
         <h1 className="text-4xl font-bold mb-4 text-rose-900">Desserts</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {data.map((dish, index) => (

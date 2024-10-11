@@ -19,9 +19,9 @@ const Card = ({ dish }: { dish: Dish }) => {
         <Image
           src={dish.image.desktop}
           alt={dish.name}
-          className="w-full h-auto rounded-lg"
-          width={200}
-          height={200}
+          className="w-full h-auto rounded-xl"
+          width={100}
+          height={100}
         />
 
         <div className="absolute inset-x-0 bottom-[-16px] flex justify-center">

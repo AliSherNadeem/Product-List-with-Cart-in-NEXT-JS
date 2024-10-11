@@ -8,19 +8,23 @@ interface Dish {
   image: {
     desktop: string;
   };
+}
+
+interface CartItem extends Dish {
   quantity: number;
 }
 
-// Define the shape of the context state
 type CartContextType = {
-  cart: Dish[];
-  updateCart: (dish: Dish) => void;
+  cart: CartItem[];
+  addToCart: (dish: Dish) => void;
+  removeFromCart: (name: string) => void;
+  updateQuantity: (name: string, quantity: number) => void;
+  getTotalItems: () => number;
+  getTotalPrice: () => number;
 };
 
-// Create the context with default values
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-// Create a custom hook to use the CartContext
 export const useCart = () => {
   const context = useContext(CartContext);
   if (!context) {
@@ -29,22 +33,56 @@ export const useCart = () => {
   return context;
 };
 
-// Define the provider component
 type CartProviderProps = {
   children: ReactNode;
 };
-
 export const CartProvider = ({ children }: CartProviderProps) => {
-  const [cart, setCart] = useState<Dish[]>([]);
+  const [cart, setCart] = useState<CartItem[]>([]);
 
-  const updateCart = (dish: Dish) => {
+  const addToCart = (dish: Dish) => {
     setCart((prev) => {
-      return [dish, ...prev];
+      const existingItem = prev.find((item) => item.name === dish.name);
+      if (existingItem) {
+        return prev.map((item) =>
+          item.name === dish.name
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      }
+      return [...prev, { ...dish, quantity: 1 }];
     });
   };
 
+  const removeFromCart = (name: string) => {
+    setCart((prev) => prev.filter((item) => item.name !== name));
+  };
+
+  const updateQuantity = (name: string, quantity: number) => {
+    setCart((prev) =>
+      prev.map((item) => (item.name === name ? { ...item, quantity } : item))
+    );
+  };
+
+  const getTotalItems = () => {
+    return cart.reduce((total, item) => total + item.quantity, 0);
+  };
+
+  const getTotalPrice = () => {
+    return cart.reduce((total, item) => total + item.price * item.quantity, 0);
+  };
+
   return (
-    <CartContext.Provider value={{ cart, updateCart }}>
+    <CartContext.Provider
+      value={{
+        cart,
+        addToCart,
+        removeFromCart,
+        updateQuantity,
+        getTotalItems,
+        getTotalPrice,
+        setCart, // Expose the setCart function
+      }}
+    >
       {children}
     </CartContext.Provider>
   );

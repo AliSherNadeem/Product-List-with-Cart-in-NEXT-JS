@@ -3,7 +3,7 @@ import { useCart } from "@/context/cartcontext";
 import CartIcon from "@/public/assets/icons/CartIcon";
 import DecrementIcon from "@/public/assets/icons/DecrementIcon";
 import IncrementIcon from "@/public/assets/icons/IncrementIcon";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 interface ButtonProps {
   label: string;
@@ -11,41 +11,42 @@ interface ButtonProps {
 }
 
 const Button = ({ label, dish }: ButtonProps) => {
+  const { cart, addToCart, updateQuantity, removeFromCart } = useCart();
   const [quantity, setQuantity] = useState(0);
   const [showControls, setShowControls] = useState(false);
 
-  const { updateCart } = useCart();
+  useEffect(() => {
+    const cartItem = cart.find((item) => item.name === dish.name);
+    if (cartItem) {
+      setQuantity(cartItem.quantity);
+      setShowControls(true);
+    } else {
+      setQuantity(0);
+      setShowControls(false);
+    }
+  }, [cart, dish.name]);
+
   const handleIncrement = () => {
-    setQuantity((prev) => prev + 1);
-    setShowControls(true);
+    addToCart(dish);
   };
 
   const handleDecrement = () => {
-    setQuantity((prev) => {
-      if (prev === 1) {
-        setShowControls(false);
-        return 0;
-      }
-      return prev - 1;
-    });
+    if (quantity > 1) {
+      updateQuantity(dish.name, quantity - 1);
+    } else {
+      removeFromCart(dish.name);
+    }
   };
 
   const handleButtonClick = () => {
-    // if (!showControls) {
-    //   setShowControls(true);
-    //   setQuantity(1);
-    // } else {
-    //   setShowControls(false);
-    //   setQuantity(0);
-    // }
-    updateCart(dish);
+    addToCart(dish);
   };
 
   return (
     <div className="flex items-center mt-4">
       {!showControls ? (
         <button
-          className="bg-white font-bold text-rose-900 border border-redCustom py-2 px-4 rounded-full shadow-lg flex items-center gap-1 justify-center w-40"
+          className="bg-white font-semibold text-rose-900 border border-redCustom py-2 px-4 rounded-full shadow-lg flex items-center gap-1 justify-center w-40"
           onClick={handleButtonClick}
         >
           <CartIcon />
@@ -55,7 +56,6 @@ const Button = ({ label, dish }: ButtonProps) => {
         <div className="flex items-center justify-between bg-redCustom text-white py-2 rounded-full shadow-lg w-40">
           <button
             onClick={handleDecrement}
-            disabled={quantity <= 0}
             className="flex items-center justify-center w-6 h-6 ml-auto border border-white rounded-full"
           >
             <DecrementIcon className="text-white" />
@@ -63,7 +63,7 @@ const Button = ({ label, dish }: ButtonProps) => {
           <span className="mx-8">{quantity}</span>
           <button
             onClick={handleIncrement}
-            className="flex items-center justify-center w-6 h-6 mr-auto  border border-white rounded-full"
+            className="flex items-center justify-center w-6 h-6 mr-auto border border-white rounded-full"
           >
             <IncrementIcon className="text-white" />
           </button>
