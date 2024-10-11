@@ -5,9 +5,17 @@ import DecrementIcon from "@/public/assets/icons/DecrementIcon";
 import IncrementIcon from "@/public/assets/icons/IncrementIcon";
 import React, { useState, useEffect } from "react";
 
+interface Dish {
+  name: string;
+  category: string;
+  price: number;
+  image: {
+    desktop: string;
+  };
+}
 interface ButtonProps {
   label: string;
-  dish: any;
+  dish: Dish;
 }
 
 const Button = ({ label, dish }: ButtonProps) => {
