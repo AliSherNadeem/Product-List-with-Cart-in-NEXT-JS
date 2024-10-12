@@ -1,7 +1,9 @@
 "Use Client";
 import React from "react";
-
-const DecrementIcon = () => {
+interface IconProps {
+  className?: string; // Accept className as an optional prop
+}
+const DecrementIcon: React.FC<IconProps> = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

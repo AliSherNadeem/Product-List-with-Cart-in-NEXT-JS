@@ -1,6 +1,8 @@
 import React from "react";
-
-const RemoveItemIcon = () => {
+interface IconProps {
+  className?: string; // Accept className as an optional prop
+}
+const RemoveItemIcon: React.FC<IconProps> = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

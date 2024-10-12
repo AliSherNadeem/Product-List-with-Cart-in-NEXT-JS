@@ -18,6 +18,7 @@ interface ButtonProps {
   dish: Dish;
 }
 
+
 const Button = ({ label, dish }: ButtonProps) => {
   const { cart, addToCart, updateQuantity, removeFromCart } = useCart();
   const [quantity, setQuantity] = useState(0);

@@ -21,6 +21,7 @@ type CartContextType = {
   updateQuantity: (name: string, quantity: number) => void;
   getTotalItems: () => number;
   getTotalPrice: () => number;
+  setCart: (items: CartItem[]) => void;
 };
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
