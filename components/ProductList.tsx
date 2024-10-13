@@ -19,15 +19,30 @@ interface Dish {
 //     });
 // }
 
-function getDishes(): Promise<Dish[]> {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL; // Accessing the environment variable
+// function getDishes(): Promise<Dish[]> {
+//   const baseUrl = process.env.NEXT_PUBLIC_API_URL; // Accessing the environment variable
 
-  return fetch(`${baseUrl}/api/desserts`) // Using the base URL from the env variable
-    .then((response) => response.json())
-    .catch((error) => {
-      console.error("Error fetching data:", error);
-      return [];
-    });
+//   return fetch(`${baseUrl}/api/desserts`) // Using the base URL from the env variable
+//     .then((response) => response.json())
+//     .catch((error) => {
+//       console.error("Error fetching data:", error);
+//       return [];
+//     });
+// }
+async function getDishes(): Promise<Dish[]> {
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL; // Ensure this is set in Vercel
+
+  try {
+    const response = await fetch(`${baseUrl}/api/desserts`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return [];
+  }
 }
 
 const ProductList = async () => {
