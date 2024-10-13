@@ -10,8 +10,19 @@ interface Dish {
   };
 }
 
+// function getDishes(): Promise<Dish[]> {
+//   return fetch("http://localhost:3000/api/desserts")
+//     .then((response) => response.json())
+//     .catch((error) => {
+//       console.error("Error fetching data:", error);
+//       return [];
+//     });
+// }
+
 function getDishes(): Promise<Dish[]> {
-  return fetch("http://localhost:3000/api/desserts")
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL; // Accessing the environment variable
+
+  return fetch(`${baseUrl}/api/desserts`) // Using the base URL from the env variable
     .then((response) => response.json())
     .catch((error) => {
       console.error("Error fetching data:", error);
