@@ -10,30 +10,11 @@ interface Dish {
   };
 }
 
-// function getDishes(): Promise<Dish[]> {
-//   return fetch("http://localhost:3000/api/desserts")
-//     .then((response) => response.json())
-//     .catch((error) => {
-//       console.error("Error fetching data:", error);
-//       return [];
-//     });
-// }
-
-// function getDishes(): Promise<Dish[]> {
-//   const baseUrl = process.env.NEXT_PUBLIC_API_URL; // Accessing the environment variable
-
-//   return fetch(`${baseUrl}/api/desserts`) // Using the base URL from the env variable
-//     .then((response) => response.json())
-//     .catch((error) => {
-//       console.error("Error fetching data:", error);
-//       return [];
-//     });
-// }
 async function getDishes(): Promise<Dish[]> {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL; // Ensure this is set in Vercel
-
   try {
-    const response = await fetch(`${baseUrl}/api/desserts`);
+    const response = await fetch("/api/desserts", {
+      next: { revalidate: 3600 },
+    });
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -47,6 +28,10 @@ async function getDishes(): Promise<Dish[]> {
 
 const ProductList = async () => {
   const data = await getDishes();
+
+  if (data.length === 0) {
+    return <div>Error loading desserts. Please try again later.</div>;
+  }
 
   return (
     <div className="flex flex-col lg:flex-row lg:mx-auto lg:px-1">
