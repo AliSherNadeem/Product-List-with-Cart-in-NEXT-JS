@@ -8,6 +8,9 @@ interface Dish {
   category: string;
   price: number;
   image: {
+    thumbnail: string;
+    mobile: string;
+    tablet: string;
     desktop: string;
   };
 }
@@ -20,8 +23,9 @@ const Card = ({ dish }: { dish: Dish }) => {
           src={dish.image.desktop}
           alt={dish.name}
           className="w-full h-auto rounded-xl"
-          width={100}
-          height={100}
+          width={300}
+          height={300}
+          sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
         />
 
         <div className="absolute inset-x-0 bottom-[-16px] flex justify-center">
