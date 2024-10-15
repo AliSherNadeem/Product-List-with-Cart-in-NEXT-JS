@@ -20,8 +20,9 @@ const Cart = () => {
   };
 
   return (
-    <div className="bg-rose-50 p-6 rounded-lg shadow-md w-[350px]">
-      <h2 className="text-2xl font-bold mb-4 text-redCustom">
+    // Cart Component
+    <div className="bg-rose-50 p-6 rounded-lg shadow-md sm:w-[300px] md:w-[360px] mx-auto">
+      <h2 className="text-2xl font-bold mb-4 text-redCustom text-center">
         Your Cart ({getTotalItems()})
       </h2>
       {cart.length === 0 ? (
@@ -39,7 +40,7 @@ const Cart = () => {
             <React.Fragment key={item.name}>
               <div className="flex justify-between items-center mb-4">
                 <div>
-                  <p className=" font-semibold mb-1">{item.name}</p>
+                  <p className="font-semibold mb-1">{item.name}</p>
                   <div className="flex items-center text-sm text-gray-600">
                     <p>
                       <span className="text-redCustom mr-1 font-bold">

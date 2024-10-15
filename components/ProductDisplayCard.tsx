@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import Button from "./Button";
+import AddtoCartButton from "./AddtoCartButton";
 import { CardContent, CardDescription, CardTitle } from "./ui/card";
 
 interface Dish {
@@ -15,9 +15,9 @@ interface Dish {
   };
 }
 
-const Card = ({ dish }: { dish: Dish }) => {
+const ProductDisplayCard = ({ dish }: { dish: Dish }) => {
   return (
-    <div className="relative">
+    <div className="relative mx-auto w-full max-w-[300px]">
       <div className="relative rounded-lg">
         <Image
           src={dish.image.desktop}
@@ -30,7 +30,7 @@ const Card = ({ dish }: { dish: Dish }) => {
 
         <div className="absolute inset-x-0 bottom-[-16px] flex justify-center">
           <div className="transform translate-y-1">
-            <Button label="Add to Cart" dish={dish} />
+            <AddtoCartButton label="Add to Cart" dish={dish} />
           </div>
         </div>
       </div>
@@ -50,4 +50,4 @@ const Card = ({ dish }: { dish: Dish }) => {
   );
 };
 
-export default Card;
+export default ProductDisplayCard;

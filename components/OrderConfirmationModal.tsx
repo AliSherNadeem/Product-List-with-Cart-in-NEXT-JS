@@ -26,7 +26,7 @@ const OrderConfirmationModal: React.FC<OrderConfirmationModalProps> = ({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center ">
-      <div className="bg-white border rounded-xl p-6 w-96 relative shadow-lg">
+      <div className="bg-white border rounded-xl p-6 w-96 relative shadow-lg  mx-auto md:w-[380px] sm:w-[300px]">
         <div className="">
           <OrderConfirmIcon />
         </div>

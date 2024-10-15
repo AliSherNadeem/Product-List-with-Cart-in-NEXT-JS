@@ -1,4 +1,4 @@
-import Card from "./Card";
+import ProductDisplayCard from "./ProductDisplayCard";
 import Cart from "./Cart";
 
 interface Dish {
@@ -38,7 +38,7 @@ const ProductList = async () => {
         <h1 className="text-4xl font-bold mb-4 text-rose-900">Desserts</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {data.map((dish, index) => (
-            <Card key={index} dish={dish} />
+            <ProductDisplayCard key={index} dish={dish} />
           ))}
         </div>
       </div>
